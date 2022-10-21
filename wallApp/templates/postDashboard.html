@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/postDashStyle.css') }}">
+    <title>Wall</title>
+</head>
+<body>
+<div id=wrapper>
+    <header>
+        <h1 id=head>{{user.firstName}}'s Wall</h1>
+        <h2 id=navTitle></h2>
+        <a class=navLink href="/landing">Home</a>
+        <a class=navLink href="/logout">Log Out</a>
+    </header>
+    <div id=recievedMessages>
+        <h3 class=subHead>Recieved</h3>
+        <h3 id=subSubHead>You have
+            {% if recievedPosts|length == 1 %}
+                {{recievedPosts|length}} post.</h3>
+            {% else %}
+                {{recievedPosts|length}} posts.</h3>
+            {% endif %}
+        {% for post in recievedPosts %}
+        <p class=messageLabel>{{post.firstName}} said:</p>
+        <ul id=list>
+                <!-- if message.creator is in my list of friends -->
+                <li class=listItem>{{post.content}}</li>
+                <!-- ulike button -->
+                <!-- else -->
+                <!-- display like button -->
+            </ul>
+            <a class=link href="/post/delete/{{post.id}}">Delete</a>
+        {% endfor %}
+    </div>
+    <div id=messageForm>
+        <h3 class=subHead> Post Something</h3>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "postError" %}
+                        <p class=error>{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/post/send" method="POST">
+            <p class=formLabel>Recipient: </p>
+            <select name="recipientId">
+                <option selected disabled>---- Select One ----</option>
+                {% for recipient in users %}
+                <option value="{{recipient.id}}">{{recipient.firstName}} {{recipient.lastName}}</option>
+                {% endfor %}
+            </select>
+            <p class=formLabel ><input id=contentInput type="text" name="content"></p>
+            <input id=submitButton type="submit" value="Send">
+        </form>
+    </div>
+    <div id=messageForm>
+        <h3 class=subHead>Sent</h3>
+        <h3 id=subSubHead>You have posted
+            {% if sentPosts|length == 1 %}
+                {{sentPosts|length}} time.</h3>
+            {% else %}
+                {{sentPosts|length}} times.</h3>
+            {% endif %}
+        {% for post in sentPosts %}
+        <p class=messageLabel>You said to {{post.firstName}}</p>
+        <ul id=list>
+                <!-- if message.creator is in my list of friends -->
+                <li class=listItem>{{post.content}}</li>
+                <!-- ulike button -->
+                <!-- else -->
+                <!-- display like button -->
+            </ul>
+            <a class=link href="/delete/post/{{post.id}}">Delete</a>
+        {% endfor %}
+    </div>
+    <!-- <div id=userNav>
+        <h3 class=subHead>All the People</h3>
+        {% for u in users %}
+            <p class=messageLabel>{{u.firstName}}</p>
+            {% if u.id in followers %}
+                <a class=link href="/unfollow/{{u.id}}">UnFollow</a>
+            {%else%}
+                <a class=link href="/follow/{{u.id}}">Follow</a>
+            {% endif %}
+        {% endfor %}
+    </div> -->
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/landingStyle.css') }}">
+    <title>Welcome, {{user.firstName}}!</title>
+</head>
+<body>
+    <div id=wrapper>
+        <header>
+            <h1 id=head>{{user.firstName}}!</h1>
+            <h2 id=navTitle>...your wall.</h2>
+            <a class=navLink href="/posts">Posts</a>
+            <a class=navLink href="/logout">Log Out</a>
+            <a class=navLink href="/user/edit">Acct Info</a>
+        </header>
+        <div id=userNav>
+            <h3 class=subHead>All the People</h3>
+            {% for u in users %}
+                <p class=messageLabel>{{u.firstName}}</p>
+                {% if u.id in followers %}
+                    <a class=link href="/unfollow/{{u.id}}">UnFollow</a>
+                {%else%}
+                    <a class=link href="/follow/{{u.id}}">Follow</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id=recievedMessages>
+            <h3 class=subHead>Recieved</h3>
+            <h3 id=subSubHead>You have
+                {% if recievedPosts|length == 1 %}
+                    {{recievedPosts|length}} post.</h3>
+                {% else %}
+                    {{recievedPosts|length}} posts.</h3>
+                {% endif %}
+            {% for post in recievedPosts %}
+            <p class=messageLabel>{{post.firstName}} said:</p>
+            <ul id=list>
+                    <!-- if message.creator is in my list of friends -->
+                    <li class=listItem>{{post.content}}</li>
+                    <!-- ulike button -->
+                    <!-- else -->
+                    <!-- display like button -->
+                </ul>
+                <a class=link href="/post/delete/{{post.id}}">Delete</a>
+            {% endfor %}
+        </div>
+        <!-- <div id=messageForm>
+            
+        </div> -->
+    </div>
+</body>
+</html>
