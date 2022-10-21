@@ -1,7 +1,7 @@
 from wallApp.config.mysqlDB import connect
 from flask import flash
 from pprint import pprint
-myDB = 'flaskWall'
+myDB = 'flaskwall'
 
 class Post:
     def __init__(self, data):
