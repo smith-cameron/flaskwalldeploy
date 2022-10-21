@@ -38,18 +38,13 @@
             {% for post in recievedPosts %}
             <p class=messageLabel>{{post.firstName}} said:</p>
             <ul id=list>
-                    <!-- if message.creator is in my list of friends -->
+                    
                     <li class=listItem>{{post.content}}</li>
-                    <!-- ulike button -->
-                    <!-- else -->
-                    <!-- display like button -->
+                    
                 </ul>
-                <a class=link href="/post/delete/{{post.id}}">Delete</a>
             {% endfor %}
         </div>
-        <!-- <div id=messageForm>
-            
-        </div> -->
+        </div> 
     </div>
 </body>
 </html>

@@ -22,7 +22,7 @@ def register():
         }
         userId = User.save(data)
         session['userId'] = userId
-        return redirect(f'/landing/{userId}')
+        return redirect(f'/landing')
     return redirect('/')
 
 @app.route('/login', methods=['POST'])

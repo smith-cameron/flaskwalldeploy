@@ -56,7 +56,7 @@ def editUser():
 def editUserPOST():
     sessionUserId= session['userId']
     email = request.form['email']
-    if sessionUserId in session:
+    if 'userId' in session:
         if email != User.findById({"i" : sessionUserId}).email:
             if not User.uniqueEmail({ "e" : email}):
                 return redirect('/user/edit')
@@ -71,28 +71,3 @@ def editUserPOST():
             return redirect('/user/edit')
         return redirect('/user/edit')
     return redirect('/')
-
-@app.route('/danger')
-def dangerPage():
-
-    return render_template('danger.html',
-    messageId = session['mId'])
-
-# landing.html
-    # Select a user to see their wall
-    # Private messaging
-    # Recent posts(since last login)
-        # to your wall
-        # to other walls
-    # Pictures??
-    # links to 
-        # Edit Your Password - Validate
-# Post dashboard.html 
-    # Like/Unlike Post
-    # Like/Unlike Comments
-    # Edit Post - Validate
-    # Comment on Posts - Validate
-        # Edit Comments - Validate
-        # Delete Comments
-#index.html responsive css(SASS?)
-

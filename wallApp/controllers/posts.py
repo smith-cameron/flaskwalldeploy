@@ -15,7 +15,6 @@ def postDashboard():
         data = {
                 "i" : thisUserId
             }
-        # print(User.findById(data))
         return render_template(
             'postDashboard.html', 
             users = User.getAllButOne(data), 
@@ -53,6 +52,6 @@ def deletePost(id):
             Post.deleteById(data)
             return redirect('/posts')
         session['mId'] = id
-        return redirect('/danger')
+        return redirect('/posts')
     return redirect('/')
 

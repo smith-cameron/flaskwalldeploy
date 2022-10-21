@@ -25,13 +25,8 @@
         {% for post in recievedPosts %}
         <p class=messageLabel>{{post.firstName}} said:</p>
         <ul id=list>
-                <!-- if message.creator is in my list of friends -->
                 <li class=listItem>{{post.content}}</li>
-                <!-- ulike button -->
-                <!-- else -->
-                <!-- display like button -->
             </ul>
-            <a class=link href="/post/delete/{{post.id}}">Delete</a>
         {% endfor %}
     </div>
     <div id=messageForm>
@@ -69,26 +64,11 @@
         {% for post in sentPosts %}
         <p class=messageLabel>You said to {{post.firstName}}</p>
         <ul id=list>
-                <!-- if message.creator is in my list of friends -->
                 <li class=listItem>{{post.content}}</li>
-                <!-- ulike button -->
-                <!-- else -->
-                <!-- display like button -->
             </ul>
             <a class=link href="/delete/post/{{post.id}}">Delete</a>
         {% endfor %}
     </div>
-    <!-- <div id=userNav>
-        <h3 class=subHead>All the People</h3>
-        {% for u in users %}
-            <p class=messageLabel>{{u.firstName}}</p>
-            {% if u.id in followers %}
-                <a class=link href="/unfollow/{{u.id}}">UnFollow</a>
-            {%else%}
-                <a class=link href="/follow/{{u.id}}">Follow</a>
-            {% endif %}
-        {% endfor %}
-    </div> -->
 </div>
 </body>
 </html>
